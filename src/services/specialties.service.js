@@ -31,12 +31,14 @@ export const createSpecialties = async (name) => {
 
 export const deleteSpecialties = async (id) => {
     const query = 'DELETE FROM test.specialty WHERE id = $1';
+    const values = [id];
 
     try {
-        const response = await pool.query(query, [id]);
-        return response.rows[0];
+        const response = await pool.query(query, values);
+        return response;
+
     } catch (error) {
-        console.error('Error al eliminar la especialidad:', error);
+        console.error(`Error al eliminar la especialidad:', ${error}`);
         throw error;
     }
 }

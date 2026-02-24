@@ -39,8 +39,13 @@ export const deleteSpe = async (req, res) => {
 
     try {
         const result = await deleteSpecialties(id);
-        if (!result) return res.status(404).json({ message: 'Especialidad no encontrada' });
-        res.json({ message: 'Especialidad eliminada', data: result });
+        
+        if (!result.rowCount === 0) {
+            return res.status(500).json({ error: "No se ha podido eliminar la especialidad" });
+        }
+
+        res.status(200).json({response: "Especialidad eliminado correctamente"});
+        
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
