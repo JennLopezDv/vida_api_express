@@ -1,5 +1,7 @@
 import { pool } from "../config/dbconfig.js";
 
+
+/** Obtener todas las especialidades */
 export const getAllSpecialties = async () => {
 
     const query = `select * from test.specialty`
@@ -12,8 +14,23 @@ export const getAllSpecialties = async () => {
         throw error;
     }
 
+};
+
+/** Obtener las especialidades por ID*/
+export const getSpecialtiesId = async (id) => {
+    const query = `select * from test.specialty where id=$1`;    
+    const search = [id];
+    try {
+        const response = await pool.query(query, search);        
+        return response.rows;
+    } catch (error) {
+        console.error('Error al obtener la especialidad', error);
+        throw error;
+    }
 }
 
+
+/** Crear las especialidades */
 export const createSpecialties = async (name) => {
 
     const query = 'INSERT INTO test.specialty (name) VALUES ($1) RETURNING id';
@@ -29,6 +46,7 @@ export const createSpecialties = async (name) => {
 
 }
 
+/** Eliminar las especialidades por ID*/
 export const deleteSpecialties = async (id) => {
     const query = 'DELETE FROM test.specialty WHERE id = $1';
     const values = [id];

@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { create, getAll } from '../controllers/doctor.controller.js';
+import { createDoc, getAllDoc, getDoctorById } from '../controllers/doctor.controller.js';
 
 
 export const doctorRoutes = Router();
 
-doctorRoutes.get('/', getAll);
-doctorRoutes.post('/', create);
+doctorRoutes.get('/', getAllDoc);
+doctorRoutes.get('/:id', getDoctorById);
+doctorRoutes.post('/', createDoc);

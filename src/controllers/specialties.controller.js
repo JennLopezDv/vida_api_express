@@ -1,5 +1,6 @@
-import { createSpecialties, getAllSpecialties, deleteSpecialties } from "../services/specialties.service.js";
+import { createSpecialties, getAllSpecialties, deleteSpecialties, getSpecialtiesId } from "../services/specialties.service.js";
 
+/* Crear especialidad */
 export const createSpeacialties = async (req, res) => {
 
     const { name } = req.body;
@@ -21,6 +22,20 @@ export const createSpeacialties = async (req, res) => {
 
 };
 
+/* Obtener la especialidad por ID*/
+export const getSpecialtiesById = async(req, res) => {        
+    try {
+        const {id} = req.params
+        const specialties = await getSpecialtiesId(id);
+        res.status(200).json({ response:specialties })
+    } catch (error) {
+        console.error('Error al obtener la especialidad por Id', error);
+        res.status(500).json({ error: error.message })
+    }
+}
+
+
+/* Obtener todas las especialidades*/
 export const getAllSpe = async (req, res) => {
 
     try {
@@ -33,7 +48,7 @@ export const getAllSpe = async (req, res) => {
 
 };
 
-
+/* Eliminar especialidad por ID */
 export const deleteSpe = async (req, res) => {
     const { id } = req.params;
 
