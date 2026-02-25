@@ -43,3 +43,17 @@ export const createPatient = async ({ name, birth_date }) => {
         throw error;
     }
 };
+
+/* Eliminar paciente */
+export const deletePatient = async (id) => {
+    const query = 'DELETE FROM test.patient WHERE id = $1';
+    const values = [id];
+    try {
+        const response = await pool.query(query, values);
+        return response;
+
+    } catch (error) {
+        console.error(`Error al eliminar el paciente:', ${error}`);
+        throw error;
+    }
+}

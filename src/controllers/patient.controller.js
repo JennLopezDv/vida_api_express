@@ -1,4 +1,4 @@
-import { getAllPatients, getPatientId, createPatient } from "../services/patient.service.js";
+import { getAllPatients, getPatientId, createPatient, deletePatient } from "../services/patient.service.js";
 
 /** Obtener todos los pacientes */
 export const getAllPat = async (req, res) => {
@@ -45,3 +45,20 @@ export const createPat = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+/** Eliminar paciente */
+export const deletePati = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await deletePatient(id);
+        
+        if (!result.rowCount === 0) {
+            return res.status(500).json({ error: "No se ha podido eliminar el paciente" });
+        }
+        res.status(200).json({response: "Paciente eliminado correctamente"});
+        
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}

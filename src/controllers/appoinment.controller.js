@@ -28,3 +28,17 @@ export const triage = async (req, res) => {
     res.status(200).json(JSON.parse(response.choices[0].message.content));
 
 } */
+
+import { getAllAppoinment } from "../services/appoinment.service.js";
+
+/** Obtener todas las citas. */
+export const getAllAppoint = async (req, res) => {
+
+    try {
+        const appoinment = await getAllAppoinment();
+        res.status(200).json({ response:appoinment })
+    } catch (error) {
+        console.error('Error al obtener todas las citas.', error)
+        res.status(500).json({error: error.message })
+    }
+};
